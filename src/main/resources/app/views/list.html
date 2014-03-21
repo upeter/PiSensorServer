@@ -1,0 +1,43 @@
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h4>How is your plant today?</h4></div>
+  <div class="panel-body" ng-controller="LandingCtrl as landingCtrl">
+		<div ng-class="landingCtrl.getAlertClass()">
+	        <p>
+	    	    <img ng-src="images/{{landingCtrl.humidity.status}}.png" width="80" height="80" style="float:right;">
+				<h5>{{landingCtrl.alertTitle}}</h5><br/>{{landingCtrl.alertMessage}}
+			</p>
+		</div>
+			<center>
+    			<div class="graph-place" gauge-meter gauge-data="landingCtrl.humidity" ></div>
+    		</center>
+		</div>
+  </div>
+  </div>
+
+<!-- 
+	<div class="alert alert-success">
+			<div><p>Your plant is happy</p>
+			<p class="navbar-right">
+				<img ng-src="images/{{landingCtrl.humidity.status}}.png" width="80" height="80">
+			</p>
+			</div>
+		</div>
+		<div class="alert alert-info">
+	        <p>
+	    	    <img ng-src="images/{{landingCtrl.humidity.status}}.png" width="80" height="80" style="float:right;">
+				<h5>Your plant is drowning</h5><br/>Don't water her anymore!
+			</p>
+		</div>
+		<div class="alert alert-warning">Your plant is thirsty. Grant her some water</div>
+		<div class="alert alert-danger">Your plant is drying out. Water her immediately!</div>
+
+
+		<div class="row-fluid" ng-controller="LandingCtrl as landingCtrl">
+			<div class="graph-place" gauge-meter gauge-data="landingCtrl.humidity" ></div>
+			<img ng-src="images/{{landingCtrl.humidity.status}}.png" width="80" height="80"><
+		</div>
+
+
+ -->
+

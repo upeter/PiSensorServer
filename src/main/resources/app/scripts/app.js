@@ -1,0 +1,45 @@
+'use strict';
+
+angular.module('stockMarketApp', ['ngRoute', 'ui.bootstrap'])
+    .config(function ($routeProvider) {
+
+        $routeProvider
+            .when('/', {
+                templateUrl: 'views/list.html'
+            })
+            .when('/calendar', {
+                templateUrl: 'views/calendar.html'
+            })
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'AuthCtrl',
+                controllerAs: 'loginCtrl'
+            })
+            .when('/register', {
+                templateUrl: 'views/signup.html',
+                controller: 'AuthCtrl',
+                controllerAs: 'signupCtrl'
+            })
+            .when('/mine', {
+                templateUrl: 'views/mine.html',
+                controller: 'MyStocksCtrl',
+                controllerAs: 'myStocksCtrl',
+                resolve: {
+                    auth: ['UserService', 'AlertService', '$q', '$location', function (UserService, AlertService, $q, $location) {
+                        return UserService.tokens().then(function (success) {
+                        }, function (err) {
+                            $q.reject(err);
+                            AlertService.set('Please login to access your information');
+                            $location.path('/login');
+                        });
+                    }]
+                }
+            })
+            .when('/logout', {
+                template: ' ',
+                controller: 'LogoutCtrl'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });

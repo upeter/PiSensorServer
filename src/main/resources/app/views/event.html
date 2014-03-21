@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h3>Event</h3>
+</div>
+<form name="eventForm" ng-submit="save()">
+    <div class="modal-body">
+        <div class="ng-cloak">
+            <div class="alert alert-error ng-hide"
+                 ng-bind="alertService.get()"
+                 ng-show="alertService.get()">
+            </div>
+        </div>
+        <input type="title" ng-model="event.title" placeholder="Title" required="">
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="save" class="btn btn-success" ng-disabled="eventForm.$invalid">
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-warning" ng-click="delete()">Delete</button>
+    </div>
+</form>

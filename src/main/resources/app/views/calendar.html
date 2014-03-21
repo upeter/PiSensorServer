@@ -1,0 +1,20 @@
+<style>
+
+    body {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 14px;
+        font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+    }
+
+    #calendar {
+        width: 900px;
+        margin: 0 auto;
+    }
+
+</style>
+<div ng-controller="CalendarCtrl as calCtrl">
+    <div jqui-calendar events="calCtrl.events"
+         when-created="calCtrl.onCreate(event, undoFunc)"
+         when-updated="calCtrl.onUpdate(event, undoFunc)"></div>
+</div>
