@@ -20,6 +20,6 @@ object Main extends App {
 
   val piServer = system.actorOf(Props[PiServerRoute], "pi-server-actor")
 
-  IO(Http) ! Bind(listener= piServer, interface = settings.RestHost, port=settings.RestPort)
+  IO(Http) ! Bind(listener= piServer, interface = "0.0.0.0", port=settings.RestPort)
 }
 
