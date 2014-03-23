@@ -35,21 +35,28 @@ angular.module('stockMarketApp')
     
 	var self = this;
     self.stocks = [];
-    self.humidity = {status:'Unkown', value:0};
-    self.alertTitle = alertData['Unkown'].title;
-    self.alertMessage = alertData['Unkown'].message;
-    	
+    var setDefaultValues = function() {
+    	  self.humidity = {status:'Unkown', value:0};
+    	  self.alertTitle = alertData['Unkown'].title;
+    	  self.alertMessage = alertData['Unkown'].message;
+    }
     var fetchGaugeData = function () {
-    	SensorService.get('humidity').success(function(result) {
-    		 self.humidity = result
-    		 self.alertTitle = alertData[result.status].title;
-    		 self.alertMessage = alertData[result.status].message;
-    	 });
+    	SensorService.get('humidity')
+    		.then(function(response) {
+    			var result = response.data;
+    			self.humidity = result;
+    			self.alertTitle = alertData[result.status].title;
+    			self.alertMessage = alertData[result.status].message;
+    		},
+    		function(error) {
+    			 setDefaultValues();
+    		});
+    	
    };
    self.getAlertClass = function() {
 	   return alertData[self.humidity.status].style;
    }
-   
+   setDefaultValues();
    fetchGaugeData();
    $interval(fetchGaugeData, 5000);
 
@@ -134,7 +141,7 @@ angular.module('stockMarketApp')
             });
         };
     }])
-    //items are passed in from 'resolve' in ModalDemoCtrl
+    // items are passed in from 'resolve' in ModalDemoCtrl
     .controller('ModalLoginInstanceCtrl', ['$scope','$modalInstance', 'UserService', 'AlertService','items', function ModalLoginInstanceCtrl($scope, $modalInstance, UserService, AlertService, items) {
         var self = this;
         $scope.loginCtrl = self;
