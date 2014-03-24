@@ -82,7 +82,7 @@ angular.module('stockMarketApp').directive('stockDash', ['UserService', 'StockSe
             	  var dataToArray = function (humidity) {
                       var arr = [
                          ['Label', 'Value'],
-                         ['Humditiy', humidity]
+                         ['Humidity', humidity]
                       ];
                      // for (var i = 0; i < priceHistory.length; i++) {
                        //   arr.push([i, priceHistory[i]]);
