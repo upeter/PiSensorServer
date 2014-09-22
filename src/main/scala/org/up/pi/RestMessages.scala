@@ -1,6 +1,5 @@
 package org.up.pi
 
-import domain._
 import spray.json.DefaultJsonProtocol
 
 case class ReverseRequest(value: String)

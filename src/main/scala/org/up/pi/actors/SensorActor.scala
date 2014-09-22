@@ -57,7 +57,8 @@ class SensorActor extends Actor with ActorLogging with Things {
       Exception.handling(classOf[Throwable]) by (e => {
         log.error(e, "error occured while retrieving sensor value for {}", sensorName)
       }) apply {
-        val sensorValue = executeCommand(sensorName, param).toInt
+        val rawValue = executeCommand(sensorName, param)
+        val sensorValue = rawValue.toInt
         val result = sensorValueCache.cache(sensorName, sensorValue)
         eventbus.publish(result)
       }
@@ -123,7 +124,15 @@ trait Things {
   val serialPort: String
 
   def executeCommand(sensorName: String, param: Option[String] = None): String = {
+    try {
     things.execute(serialPort, sensorName, param.getOrElse(null));
+    } catch {
+      case e:Exception => {
+        things.close();
+        throw e
+      }
+      
+    }
   }
 
 }
